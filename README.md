@@ -2,30 +2,6 @@
 
 A collection of talks I've given
 
-## Features
-
-## Install
-
-```sh
-
-```
-
-## Building from source
-
-With Docker:
-
-```sh
-make docker-build
-```
-
-Standalone:
-
-```sh
-make build
-```
-
-## Resources
-
 ## Contributing
 
 If you find a bug or have an idea for a new feature please [raise an issue](issues/new) to discuss it.
