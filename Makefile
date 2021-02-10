@@ -1,6 +1,6 @@
 .DEFAULT_GOAL := default
 
-IMAGE ?= docker.cluster.fun/private/talks:latest
+IMAGE ?= docker.cluster.fun/averagemarcus/talks:latest
 
 .PHONY: test # Run all tests, linting and format checks
 test: lint check-format run-tests
@@ -33,17 +33,11 @@ run-tests:
 
 .PHONY: fetch-deps # Fetch all project dependencies
 fetch-deps:
-	@echo "⚠️ 'fetch-deps' unimplemented"
-	# GO Projects
-	# @go mod tidy
-	# Node Projects
-	# @npm install
+	@npm install -g @marp-team/marp-cli
 
 .PHONY: build # Build the project
 build: lint check-format fetch-deps
-	@echo "⚠️ 'build' unimplemented"
-	# GO Projects
-	# @go build -o PROJECT_NAME main.go
+	@find . -maxdepth 2 -mindepth 2 -name "*.md" -not -name "README.md" -print0 | xargs -0 marp {} \;
 
 .PHONY: docker-build # Build the docker image
 docker-build:
@@ -54,12 +48,8 @@ docker-publish:
 	@docker push $(IMAGE)
 
 .PHONY: run # Run the application
-run:
-	@echo "⚠️ 'run' unimplemented"
-	# GO Projects
-	# @go run main.go
-	# Node Projects
-	# @npm start
+run: docker-build
+	@docker run --rm -it -p 8080:80 $(IMAGE)
 
 .PHONY: ci # Perform CI specific tasks to perform on a pull request
 ci:
